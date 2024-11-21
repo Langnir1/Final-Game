@@ -17,9 +17,12 @@ Class Game
  * call simpleGE (parameter)
  * call self using def __init__(self)
  * Set background to space (or solid color if no img is found yet)
+ * Create self variables that get the sprite
 ------------------------
 Class planet
  * call simpleGE (paremeter)
+ * Create a stationary box in the center of the screen (This will later be a planet)
+    * If possible, just get a small planet img without needing to make a box.    
 ------------------------
 Class Asteroids
 
