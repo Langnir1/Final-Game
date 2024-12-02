@@ -42,6 +42,7 @@ This class is for the asteroids and creates, checks, and positions them.
    
  * Create reset method
     * creates asteroids at a random point on the outside of the screen
+    * Variable location gets spawn direction (north, south, east, west)
     * Random speed between two numbers
   Once gameplay is working, add a large asteroid that requires multiple shots
 ----------------------------
