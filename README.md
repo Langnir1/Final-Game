@@ -18,7 +18,7 @@ Class Game
  * call self using def __init__(self)
  * Set background to space (or solid color if no img is found yet)
  * Create self variables that get the sprite
-    * planet, asteroids,
+    * planet, asteroids, laser
 * If laser collides with asteroid, Asteroids.reset()
    * score +1
 * buttonQuit = simpleGE.Button()
