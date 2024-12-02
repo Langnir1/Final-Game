@@ -17,22 +17,22 @@ class Asteroids(simpleGE.Sprite):
         result = random.choice(location)
         print(result)
         
-        if location == "North":
+        if result == "North":
             self.y = 0
             self.x = random.randint(0, self.screenWidth)
-            self.dy = random.randint(3, 5)
-        if location == "South":
+            self.dy = random.randint(1, 3)
+        if result == "South":
             self.y = self.screenHeight
             self.x = random.randint(0, self.screenWidth)
-            self.dy = random.randint(-3, -5)
-        if location == "East":
+            self.dy = random.randint(-3, -1)
+        if result == "East":
             self.y = random.randint(0, self.screenHeight)
             self.x = self.screenWidth
-            self.dx = random.randint(-3, -5)
-        if location == "West":
+            self.dx = random.randint(-3, -1)
+        if result == "West":
             self.y = random.randint(0, self.screenHeight)
             self.x = 0
-            self.dx = random.randint(3, 5)
+            self.dx = random.randint(1, 3)
         
 
 class Game(simpleGE.Scene):
