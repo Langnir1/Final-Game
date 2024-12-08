@@ -18,7 +18,7 @@ I would change how often I sped ahead of what I should be doing. Instead of putt
 I strayed from the document a lot. I tended to keep the document idea alive though. While I strayed in terms of details and adding things that weren't orginally in the document, I didn't stray far like adding a whole new sprite that wasn't mentioned previously.
 
 ---------------------
-Import simpleGE and Random
+Import simpleGE, Random, and pygame
 
 Main
  * calls the game class
