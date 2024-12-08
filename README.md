@@ -8,6 +8,16 @@ Overview / idea
    The asteroids will approach at different speeds and sizes and some (future idea) might split when destroyed.
    Once the intial gameplay of shooting and destroying asteroids is complete, ideas for special asteroids and powerups can be considered.
 ---------------------
+
+All images and soundeffects came from OpenGameArt.org
+
+One of the biggest things I learned was how to randomize the spawn of sprites. 
+I got stuck on human error (forgetting or mispelling) and not knowing how to do certain things.
+I want to improve on my understanding of the different methods that can be used. I'm less concerned with my speed rather then can I understand and build something without help. This one needs major improvement because the way to learn this is different from math where you can just do problems over and over and drill it in.
+I would change how often I sped ahead of what I should be doing. Instead of putting 4 sprites in, I would try to only do 1 to make sure it works.
+I strayed from the document a lot. I tended to keep the document idea alive though. While I strayed in terms of details and adding things that weren't orginally in the document, I didn't stray far like adding a whole new sprite that wasn't mentioned previously.
+
+---------------------
 Import simpleGE and Random
 
 Main
