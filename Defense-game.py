@@ -4,7 +4,17 @@ class Laser(simpleGE.Sprite):
     def __init__(self,scene):
         super().__init__(scene)
         self.setImage("48.png")
-        self.setSize(20, 20)
+        self.setSize(10, 5)
+        self.hide()
+        
+    def fire(self):
+        #To fire the laser, first unhide it. Then have the laser move from the planet
+        #to a different location by checking where mouse is when clicked
+        self.show()
+        self.position = (320,240)
+        self.moveAngle = self.dirTo(pygame.mouse.get_pos())
+        self.speed = 10
+        
         
 class Planet(simpleGE.Sprite):
     def __init__(self, scene):
@@ -57,12 +67,25 @@ class Game(simpleGE.Scene):
         self.setImage("Star_Space.png")
         self.numAsteroid = 10
         self.asteroid = []
+        self.score = 0
+        
         for i in range(self.numAsteroid):
             self.asteroid.append(Asteroids(self))
         
         self.planet = Planet(self)
+        
+        self.numLaser = 100
         self.laser = Laser(self)
+#         self.laser = []
+#         for i in range(self.numLaser):
+#             self.laser.append(Laser(self))
+            
         self.labelScore = LabelScore()
+        self.laserShoot = simpleGE.Sound("laserShoot.wav")
+        self.explosion = simpleGE.Sound("explosion.wav")
+        
+        #self.exit = simpleGE.Button()
+        #self.exit
         
         self.sprites = [self.planet,
                         self.asteroid,
@@ -70,16 +93,87 @@ class Game(simpleGE.Scene):
                         self.labelScore]
         
     def process(self):
+        if pygame.mouse.get_pressed() == (1, 0, 0):
+            self.laser.fire()
+            self.laserShoot.play()
+            
         for asteroid in self.asteroid:
             if self.planet.collidesWith(asteroid):
-                asteroid.reset()
+                self.stop()
+                print("Game Over!")
+#                asteroid.reset()
             if self.laser.collidesWith(asteroid):
+                self.explosion.play()
+                self.score += 1
+                self.labelScore.text = (f"Score = {self.score}")
                 asteroid.reset()
-                laser.rest()
+                self.laser.hide()
+
+class Instructions(simpleGE.Scene):
+    def __init__(self, score):
+        super().__init__()
+        
+        self.response = "Play"
+        
+        self.instructions = simpleGE.MultiLabel()
+        self.instructions.textLines = [
+            "Welcome to Planet Defence!",
+            "You have only one goal, Survive.",
+            "Use the mouse to send a laser in the direction you click",
+            "and keep the machine planet alive.",
+            "You win once the score reaches 40,",
+            "but you lose if the planet is hit once!"   
+            ]
+        
+        self.lastScore = score
+        self.labelScore = simpleGE.Label()
+        self.labelScore.text = (f"Last Score = {self.lastScore}")
+        self.labelScore.center = (330, 300)
+    
+        self.instructions.center = (320, 150)
+        self.instructions.size = (600, 200)
+    
+        self.buttonPlay = simpleGE.Button()
+        self.buttonPlay.text = "Play"
+        self.buttonPlay.center = (100, 300)
+        
+        self.buttonQuit = simpleGE.Button()
+        self.buttonQuit.text = "Quit"
+        self.buttonQuit.center = (540, 300)
+        
+        self.sprites = [self.instructions,
+                        self.labelScore,
+                        self.buttonPlay,
+                        self.buttonQuit]
+        
+#         self.sprites = [self.instructions,
+#                         self.lastScore,
+#                         self.buttonPlay,
+#                         self.buttonQuit]
+#         
+    def process(self):
+        if self.buttonPlay.clicked:
+            self.response = "Play"
+            self.stop()
+        if self.buttonQuit.clicked:
+            self.response = "Quit"
+            self.stop()
                 
 def main():
-    game = Game()
-    game.start()
+    keepGoing = True
+    score = 0
+#    instructions = Instructions(0)
+#    instructions.start()
+    while keepGoing:
+        instructions = Instructions(score)
+        instructions.start()
+         
+        if instructions.response == "Play":
+            game = Game()
+            game.start()
+            score = game.score
+        else:
+            keepGoing = False
     
 if __name__ == "__main__":
     main()
