@@ -81,12 +81,12 @@ Class labelScore()
 * Position to top middle of screen
 -----------------------
 Class Instructions():
-   def __init__(self, score):
-      *variable response = "Play"
-      *create a multiLabel called instructions and input needed text
-      *create lastScore which gets score
-      *create labelScore which shows what the previous socre is
-      *Create two buttons
+def __init__(self):
+      * variable response = "Play"
+      * create a multiLabel called instructions and input needed text
+      * create lastScore which gets score
+      * create labelScore which shows what the previous socre is
+      * Create two buttons
          * One labled "Play" the other "Quit"
          * When the respective button is clicked, Close game or start game
          
