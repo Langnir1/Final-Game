@@ -12,15 +12,33 @@ Import simpleGE and Random
 
 Main
  * calls the game class
+
+Updated method:
+ * Use keepGoing = True
+ * set score to 0
+ * While keepGoing, run instructions
+    * if response == "Play", start game
+    * else, keepGoing = False     
 ----------------------
 Class Game
- * call simpleGE (parameter)
- * call self using def __init__(self)
- * Set background to space (or solid color if no img is found yet)
- * Create self variables that get the sprite
-    * planet, asteroids, laser
+* call simpleGE (parameter)
+* call self using def __init__(self)
+* Set background to Star_Space.png
+* Create self variables that get the sprite
+   * planet, asteroids, laser, labelScore
+* Sound effects
+   * laserShoot and explosion
+* If mouse is is clicked (using pygame.mouse)
+   * Fire laser
+   * Play laser sound effect
+* If asteroid collides with planet, STOP GAME
 * If laser collides with asteroid, Asteroids.reset()
+   * Play explosion sound effect 
    * score +1
+   * Update labelScore text
+   * reset asteroid
+   * hide laser
+
 * buttonQuit = simpleGE.Button()
    * Position, top right of screen
    * Img: hopefully a red box with an X
@@ -28,8 +46,8 @@ Class Game
 ------------------------
 Class planet
  * call simpleGE (paremeter)
- * Create a stationary box in the center of the screen (This will later be a planet)
-    * If possible, just get a small planet img without needing to make a box.
+ * call planet image
+ * set position and size
 
 * future ideas involve a rotating planet or an image that moves to shoot the asteroids   
 ------------------------
@@ -38,23 +56,36 @@ Class Asteroids
 This class is for the asteroids and creates, checks, and positions them.
  * call simpleGE (parameter)
  * setSize
- * asteroid moves to center
    
  * Create reset method
     * creates asteroids at a random point on the outside of the screen
     * Variable location gets spawn direction (north, south, east, west)
-    * Random speed between two numbers
-  Once gameplay is working, add a large asteroid that requires multiple shots
+    * Asteroids move towards center/planet location
+       * Utilize moveAngle and dirTo
+    * Set Speed to 1
+|Once gameplay is working, add a large asteroid that requires multiple shots|
 ----------------------------
 Class Laser(simpleGE.Scene)
 def __init__(self):
-
-* when mouse (for now) is clicked, send a laser from Planet in that direction.
-* If laser hits asteroid, reset astroid and laser
-* Laser speed is unknown but needs to be fast 
+   * Initialize and create laser
+   * hide laser
+def fire(self):
+   * show laser
+   * set position to planet location/center of screen
+   * Utilize moveAngle and set dirTo towards mouse position
+   * Set speed to 10
 ---------------------------
 Class labelScore()
 
 * text "score = 0"
 * Position to top middle of screen
 -----------------------
+Class Instructions():
+   def __init__(self, score):
+      * variable response = "Play"
+      * create a multiLabel called instructions and input needed text
+      * create lastScore which gets score
+      * create labelScore which shows what the previous socre is
+      * Create two buttons
+         * One labled "Play" the other "Quit"
+         * When the respective button is clicked, Close game or start game
