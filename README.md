@@ -89,3 +89,4 @@ Class Instructions():
       * Create two buttons
          * One labled "Play" the other "Quit"
          * When the respective button is clicked, Close game or start game
+--------------------------
