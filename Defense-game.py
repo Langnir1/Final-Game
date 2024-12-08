@@ -52,7 +52,7 @@ class Asteroids(simpleGE.Sprite):
             self.x = 0
             #self.dx = random.randint(1, 3)
         
-        self.moveAngle =self.dirTo((320, 240))
+        self.moveAngle = self.dirTo((320, 240))
         self.speed = 1
         
 class LabelScore(simpleGE.Label):
@@ -65,9 +65,11 @@ class Game(simpleGE.Scene):
     def __init__(self):
         super().__init__()
         self.setImage("Star_Space.png")
+        
         self.numAsteroid = 10
         self.asteroid = []
         self.score = 0
+        self.result = "play game"
         
         for i in range(self.numAsteroid):
             self.asteroid.append(Asteroids(self))
@@ -90,7 +92,8 @@ class Game(simpleGE.Scene):
         self.sprites = [self.planet,
                         self.asteroid,
                         self.laser,
-                        self.labelScore]
+                        self.labelScore
+                        ]
         
     def process(self):
         if pygame.mouse.get_pressed() == (1, 0, 0):
@@ -99,18 +102,22 @@ class Game(simpleGE.Scene):
             
         for asteroid in self.asteroid:
             if self.planet.collidesWith(asteroid):
+                self.result = "You lose!"
                 self.stop()
                 print("Game Over!")
-#                asteroid.reset()
+#             
             if self.laser.collidesWith(asteroid):
                 self.explosion.play()
                 self.score += 1
                 self.labelScore.text = (f"Score = {self.score}")
+                if self.score > 40:
+                    self.result = "You Win!"
+                    self.stop()
                 asteroid.reset()
                 self.laser.hide()
 
 class Instructions(simpleGE.Scene):
-    def __init__(self, score):
+    def __init__(self, score, result):
         super().__init__()
         
         self.response = "Play"
@@ -141,16 +148,18 @@ class Instructions(simpleGE.Scene):
         self.buttonQuit.text = "Quit"
         self.buttonQuit.center = (540, 300)
         
+        self.message = result
+        self.labelMessage = simpleGE.Label()
+        self.labelMessage.text = (f"Message = {self.message}")
+        self.labelMessage.center = (320, 330)
+        
+        
+        
         self.sprites = [self.instructions,
                         self.labelScore,
                         self.buttonPlay,
                         self.buttonQuit]
         
-#         self.sprites = [self.instructions,
-#                         self.lastScore,
-#                         self.buttonPlay,
-#                         self.buttonQuit]
-#         
     def process(self):
         if self.buttonPlay.clicked:
             self.response = "Play"
@@ -162,10 +171,11 @@ class Instructions(simpleGE.Scene):
 def main():
     keepGoing = True
     score = 0
+    result = "Start the game"
 #    instructions = Instructions(0)
 #    instructions.start()
     while keepGoing:
-        instructions = Instructions(score)
+        instructions = Instructions(score, result)
         instructions.start()
          
         if instructions.response == "Play":
