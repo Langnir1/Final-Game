@@ -82,8 +82,8 @@ Class labelScore()
 -----------------------
 Class Instructions():
    def __init__(self, score):
-      * variable response = "Play"
-      * create a multiLabel called instructions and input needed text
+      - variable response = "Play"
+      - create a multiLabel called instructions and input needed text
       * create lastScore which gets score
       * create labelScore which shows what the previous socre is
       * Create two buttons
